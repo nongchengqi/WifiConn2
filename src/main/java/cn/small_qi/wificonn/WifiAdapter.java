@@ -76,7 +76,7 @@ public class WifiAdapter extends BaseAdapter {
             holder.state.setText("正在连接...");
         }else if (wifiState==1&&position==opIndex){
             holder.state.setText("正在获取IP地址...");
-        }else if(wifiState==2&&position==opIndex||admin.getConnectInfo().getSSID().equals("\"" + result.SSID+"\"" )){
+        }else if(/*wifiState==2&&position==opIndex||*/admin.getConnectInfo().getSSID().equals("\"" + result.SSID+"\"" )){
             holder.state.setText("已连接");
         }else if(wifiState==3&&position==opIndex){
             holder.state.setText("密码错误");

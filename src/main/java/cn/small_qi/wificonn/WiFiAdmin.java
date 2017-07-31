@@ -382,18 +382,20 @@ public class WiFiAdmin {
                     break;
                 case WifiManager.NETWORK_STATE_CHANGED_ACTION:
                     NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-                    if (info.getState().equals(NetworkInfo.State.DISCONNECTED)) {
+                    if (info.getDetailedState().equals(NetworkInfo.DetailedState.DISCONNECTED)) {
                         //wifi已断开
                         mWifiStateChangeListener.onWifiDisconnect();
-                    } else if (info.getState().equals(NetworkInfo.State.CONNECTING)) {
+                    } else if (info.getDetailedState().equals(NetworkInfo.DetailedState.CONNECTING)) {
                         //正在连接...
                         mWifiStateChangeListener.onWifiConnecting();
-                    } else if (info.getState().equals(NetworkInfo.State.CONNECTED)) {
+                    } else if (info.getDetailedState().equals(NetworkInfo.DetailedState.CONNECTED)) {
                         //连接到网络
                         mWifiStateChangeListener.onWifiConnected();
                     }else if(info.getDetailedState().equals(NetworkInfo.DetailedState.OBTAINING_IPADDR)){
                         //正在获取IP地址
                         mWifiStateChangeListener.onWifiGettingIP();
+                    }else if(info.getDetailedState().equals(NetworkInfo.DetailedState.FAILED)){
+                        //连接失败
                     }
 
                     break;
@@ -411,14 +413,11 @@ public class WiFiAdmin {
                     }
                     break;
                 case WifiManager.SUPPLICANT_STATE_CHANGED_ACTION:
-                    int error = intent.getIntExtra(WifiManager.EXTRA_SUPPLICANT_ERROR, 0);
-                    switch (error) {
-                        case WifiManager.ERROR_AUTHENTICATING:
-                            //wifi密码认证错误！
-                            mWifiStateChangeListener.onPasswordError();
-                            break;
-                        default:
-                            break;
+                    int error = intent.getIntExtra(WifiManager.EXTRA_SUPPLICANT_ERROR, -100);
+                    LogUtil.log("密码认证错误："+error+"\n");
+                    if (error==WifiManager.ERROR_AUTHENTICATING){
+                        //wifi密码认证错误！
+                        mWifiStateChangeListener.onPasswordError();
                     }
                     break;
                 case WifiManager.NETWORK_IDS_CHANGED_ACTION:
@@ -427,6 +426,7 @@ public class WiFiAdmin {
                     break;
                 case ConnectivityManager.CONNECTIVITY_ACTION:
                     //连接状态发生变化，暂时没用到
+                    int type = intent.getIntExtra(ConnectivityManager.EXTRA_NETWORK_TYPE,0);
                     break;
                 default:
                     break;

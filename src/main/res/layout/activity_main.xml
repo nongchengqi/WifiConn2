@@ -30,7 +30,13 @@
             android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="连接信息"
+            android:text="信息"
+            />
+        <Button
+            android:id="@+id/conn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通讯"
             />
     </LinearLayout>
     <ListView

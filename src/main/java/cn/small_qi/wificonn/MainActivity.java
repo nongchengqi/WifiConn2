@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.open).setOnClickListener(this);
         findViewById(R.id.scan).setOnClickListener(this);
         findViewById(R.id.info).setOnClickListener(this);
+        findViewById(R.id.conn).setOnClickListener(this);
     }
     private void setStateListener() {
         admin.addWifiStateChangeListener(new WiFiAdmin.WifiStateChangeListener() {
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onWifiDisconnect() {
-                adapter.updateState(4,curPosition                                              );
+                adapter.updateState(4,curPosition);
 
             }
 
@@ -212,6 +213,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.info:
                 showInfo();
+                break;
+            case R.id.conn:
+                if (admin!=null&&admin.getConnectInfo().getIpAddress()!=0){
+
+                }else{
+                    Toast.makeText(this, "请先连接Wifi或者等待Wifi连接成功", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
