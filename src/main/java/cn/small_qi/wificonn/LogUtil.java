@@ -23,7 +23,7 @@ public class LogUtil {
         File file =new File(Environment.getExternalStorageDirectory(),"wifi_log.txt");
         try {
             FileOutputStream os = new FileOutputStream(file,true);
-            os.write(String.valueOf(info).getBytes());
+            os.write((String.valueOf(info)+"\n").getBytes());
             os.flush();
             os.close();
         } catch (java.io.IOException e) {

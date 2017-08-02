@@ -2,6 +2,7 @@ package cn.small_qi.wificonn;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.conn:
                 if (admin!=null&&admin.getConnectInfo().getIpAddress()!=0){
-
+                    startActivity(new Intent(MainActivity.this,ConnActivity.class));
                 }else{
                     Toast.makeText(this, "请先连接Wifi或者等待Wifi连接成功", Toast.LENGTH_SHORT).show();
                 }
